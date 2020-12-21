@@ -1,2 +1,5 @@
 planning/
 node_modules/
+live-server
+live-server.cmd
+live-server.ps1
