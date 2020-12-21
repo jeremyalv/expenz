@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Expenz</title>
+  <link rel="stylesheet" href="styles/style.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://kit.fontawesome.com/cee68340ba.js" crossorigin="anonymous"></script>
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@200;300;400&display=swap" rel="stylesheet">   
+</head>
+<body>
+    <div class="main center">
+      <div class="row app-header">Expenz</div>
+
+      <div class="row-1">
+        <!-- Expense name -->
+        <div class="name">
+          <label for="name" class="label-name">Name</label>
+          <input type="text" id="name" class="input-name"
+              placeholder="Enter expense name..."  autocomplete="off">
+        </div>
+      </div>
+
+      <div class="row-2">
+        <!-- Date picker -->
+        <div class="date">
+          <label for="date" class="label-date">Date</label>
+          <input type="date" class="input-date">
+          <!-- <i class="far fa-calendar-alt" style="font-size: 1.4rem;"></i> -->
+        </div>
+
+        <!-- Amount -->
+        <div class="amount">
+          <label for="amount" class="label-amount">Amount</label>
+          <input type="text" id="amount" class="input-amount" placeholder="Enter amount..." autocomplete="off">
+        </div>
+      </div>
+
+      <!-- Add expense -->
+      <button class="btn btn-success btn-add-expense">Add Expense</button>  
+    </div>
+        
+  
+    <div class="expense-table">
+  
+    </div>
+  <script src="scripts/script.js" type="module"></script>
+  <!-- <script type="text/javascript">
+    $(function(){
+      $('#datetimepicker').datetimepicker();
+    })
+  </script> -->
+  <script>   
+    $(function() {
+        $( "#calendar" ).datepicker();   
+      }); 
+  </script>
+</body>
+</html>
