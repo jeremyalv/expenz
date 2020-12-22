@@ -6,11 +6,42 @@
   margin: 0;
   min-height: 100%;
 }
-.label {
-  /* float: left; */
+.body {
+  background: linear-gradient(120deg, #fd5c63, #c30b03);
+  animation: fadeInAnimation ease 2.8s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
 }
-.input {
-  /* float: left; */
+@keyframes fadeInAnimation {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+/* Scrollbars */
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: white black;
+}
+
+/* Chrome, Edge, Safari */
+*::-webkit-scrollbar {
+  width: 16px;
+}
+
+*::-webkit-scrollbar-track {
+  background: black;
+  
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: black;
+  border-radius: 12px;
+  border: 3px solid white;
 }
 .center {
   margin: 0 auto 0 auto;
@@ -68,11 +99,24 @@
   width: 60%;
 }
 
-.btn-add-expense {
+#buttons {
   margin: 24px 0 12px 0;
+  /* padding-top: 24px; */
   position: relative;
   /* top: 50%; */
   left: 50%;
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
+  text-align: center;
+}
+.hidden {
+  display:none
+}
+
+/* Table styling */
+.expense-table {
+  margin-top: 24px;
+  border-radius: 12px;
+  -moz-border-radius: 12px;
+  -webkit-border-radius: 12px;
 }

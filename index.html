@@ -27,35 +27,39 @@
         <!-- Date picker -->
         <div class="date">
           <label for="date" class="label-date">Date</label>
-          <input type="date" class="input-date">
+          <input type="date" class="input-date" min="01-01-2000">
           <!-- <i class="far fa-calendar-alt" style="font-size: 1.4rem;"></i> -->
         </div>
 
         <!-- Amount -->
         <div class="amount">
           <label for="amount" class="label-amount">Amount</label>
-          <input type="text" id="amount" class="input-amount" placeholder="Enter amount..." autocomplete="off">
+          <input type="number" id="amount" class="input-amount" placeholder="$" autocomplete="off" min="0">
         </div>
       </div>
 
       <!-- Add expense -->
-      <button class="btn btn-success btn-add-expense">Add Expense</button>  
+      <div id="buttons">
+        <button class="btn btn-success btn-add-expense">Add Expense</button>  
+        <button class="btn btn-danger btn-clear-input">Clear Input</button>  
+      </div>
     </div>
         
   
-    <div class="expense-table">
-  
-    </div>
-  <script src="scripts/script.js" type="module"></script>
-  <!-- <script type="text/javascript">
-    $(function(){
-      $('#datetimepicker').datetimepicker();
-    })
-  </script> -->
-  <script>   
-    $(function() {
-        $( "#calendar" ).datepicker();   
-      }); 
-  </script>
+    <table class="expense-table center hidden">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Date</th>
+          <th>Amount</th>
+          <th>Remove</th>
+        </tr>
+      </thead>
+      
+      <tbody class="table-body">
+      </tbody>
+
+    </table>
+  <script defer src="scripts/controller.js" type="module"></script>
 </body>
 </html>
