@@ -1,15 +1,14 @@
-import { $, ENTER_KEYCODE, ADD_EXPENSE_CLASSNAME } from './config.js';
+import { $, ENTER_KEYCODE, ADD_EXPENSE_CLASSNAME, CROSS_ITEM_CLASSNAME } from './config.js';
 import * as model from './model.js';
 import * as view from './view.js';
 
-/**
- * Controller functions
- */
+// Worked properly
 function controlAddExpense(event) {
-  // Check inputs: If not all inputs are filled, do nothing.
-  if (!view.checkIfInputIsFilled()) return;
+  // If a click event or a keyup event on enter happens, run the function
+  if (event.target.classList.contains(ADD_EXPENSE_CLASSNAME) || event.key === 'Enter') {
+    // Check inputs: If not all inputs are filled, do nothing.
+    if (!view.checkIfInputIsFilled()) return;
 
-  if (event.target.classList.contains(ADD_EXPENSE_CLASSNAME) || event.keyCode ? event.keyCode === ENTER_KEYCODE : false) {
     // Read expense from input box
     const expense = view.readExpenseInputValues();
     
@@ -18,36 +17,25 @@ function controlAddExpense(event) {
 
     // Resets the values on the input box
     view.resetInputBox();
+
+
+    // Create table row containing the added expense
+    view.showTable();
+    view.createTableRowItem(expense, model.expenseList, function(event) {
+      // Add event parameter (passed from DOMEvent -> controlAddExpense -> Anonymous function -> view.deleteTableRowItem, if we didn't pass event to anon.fn, event.currentTarget will return null.
+      // Adding functions with parameters as parameter by wrapping it inside an anonymous function
+      view.deleteTableRowItem(event, model.expenseList);
+    });
+    console.log(model.expenseList);
   }
 }
-
-// This might not be needed.
-// function controlAddExpenseEnter(event) {
-//   // Check inputs: If not all inputs are filled, do nothing.
-//   if (!view.checkIfInputIsFilled()) return;
-
-//   if (event.keyCode === ENTER_KEYCODE) {
-//     // Read expense from input box
-//     const expense = view.readExpenseInputValues();
-    
-//     // Append expense to expenseList
-//     model.storeExpenseData(expense);
-
-//     // Resets the values on the input box
-//     view.resetInputBox();
-//   }
-// }
-
-function controlDeleteExpense() {
-  // Deletes expense from expenseList and deletes the element from the DOM when 'x' is clicked.
-  
-
-
-}
-
 function init() {
-  // Event listeners
+  $('.btn-add-expense').addEventListener('click', controlAddExpense);
+  $('.btn-clear-input').addEventListener('click', view.resetInputBox);
+  document.querySelectorAll('.input').forEach(item => {
+    item.addEventListener('keyup', controlAddExpense);
+  })
 }
 
 // Run the app
-// init();
+window.onload = init;

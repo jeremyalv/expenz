@@ -1,19 +1,25 @@
-import { $, CROSS_HEX, CROSS_ITEM_CLASSNAME } from './config.js';
+import { $, CROSS_HEX, CROSS_ITEM_CLASSNAME, DOLLAR_SIGN, MONTHS, MONTHS_START_AT } from './config.js';
 
-/**
- * Markup creating functions
- */
 
 function readExpenseInputValues() {
   // Read expense data from the DOM and store it into an object
   const expenseName = $('.input-name').value.trim();
-  const expenseDate = $('.input-date').value; // format mm-dd-yyyy
   const expenseAmount = $('.input-amount').value;
+
+  // Transforming the raw input to formatted data
+  const expenseDateRaw = $('.input-date').value;
+  const rawLength = expenseDateRaw.length;
+
+  const day = expenseDateRaw.slice(rawLength - 2, rawLength);
+  const month = MONTHS[expenseDateRaw.slice(MONTHS_START_AT, MONTHS_START_AT + 2)];
+  const year = expenseDateRaw.slice(0, 4);
+
+  const expenseDate = `${month} ${day}, ${year}`;
 
   const expense = {
     name: expenseName,
     date: expenseDate,
-    amount: expenseAmount
+    amount: `${DOLLAR_SIGN} ${expenseAmount}`
   }
 
   return expense;
@@ -45,13 +51,6 @@ function hideTable() {
   }
 }
 
-// Ga perlu
-// function createTableMarkup() {
-//   // Mirip function createListItem Optimizy g deng
-
-// }
-
-
 /**
  * DOM append functions
  */
@@ -63,7 +62,6 @@ function createTableRowItem(expense, expenseList, controlRemoveTR) {
 
   // Create a table row
   const tr = document.createElement('tr');
-  // pake config.js sabi ni
   tr.setAttribute('class', 'table-row');
   tr.setAttribute('id', `table-row-${expenseList.length}`)
   
@@ -102,8 +100,17 @@ function createTableRowItem(expense, expenseList, controlRemoveTR) {
 }
 
 function deleteTableRowItem(event, expenseList) {
-  // If table row data === 1, toggle table to hidden
   // The function will recognize which tr to delete by looking at the id of the 'x' button and grab the id of it's parent element (tr) by using .parentNode().id
+
+  // If expenseList only contains one element, remove the expense and hide the table.
+  const expenseCount = expenseList.length;
+
+  // Hides table if said item is the only item in the list
+  if (expenseCount === 0) {
+    return;
+  } else if (expenseCount === 1) {
+    hideTable();
+  }
 
   // Retrieves the target element's id (button id)
   const id = event.currentTarget.id;
@@ -116,29 +123,35 @@ function deleteTableRowItem(event, expenseList) {
 
   // Store the expense name so we can delete it from our data structure later
   const tdName = tr.childNodes[0];
+
+  // Get the name by using .innerText
   const expenseName = tdName.innerText;
 
   // Remove the table row 
   tr.parentNode.removeChild(tr);
 
-  // 
-  const expense;
-  // Iterate expenseList array
+  // Storing the name of the expense
+  let expenseObj;
   for (let exp of expenseList) {
     if (exp.name === expenseName) {
-      expense = expense.name;
+      // expenseObj is not the expenseName, but the expense Object that is stored in our DS (Array)
+      expenseObj = exp;
+      break;
     }
-  }
+  }  
+  // expenseObj is undefined --> we must declare expenseObj before the loop (thus using let). If we declare expenseObj inside the loop, for some reason we will receive a value of 'undefined' if we try to log it into the console later on.
 
-  // Gets the index of expense in expenseList
   try {
-    const expenseIndex = tdName.indexOf(expense)
+    // Gets the index of expense in expenseList
+    const expenseIndex = expenseList.indexOf(expenseObj)
+
+    // Remove the task from expenseList --> may create another function later?
+    expenseList.splice(expenseIndex, 1)
   } catch (err) {
     console.log(err);
   }
 
-  // Remove the task from expenseList --> may create another function later?
-  expenseList.splice(expenseIndex, 1)
+  console.log(expenseList);
 }
 
 function resetInputBox() {
@@ -148,14 +161,18 @@ function resetInputBox() {
   })
 }
 
-function checkIfInputIsFilled(event) {
+function checkIfInputIsFilled() {
   const selectors = ['.input-name', '.input-date', '.input-amount'];
 
-  for (selector of selectors ) {
+  for (let selector of selectors) {
     const inputBoxValue = $(selector).value;
     if (!inputBoxValue) {
       // If any of the input box value is empty, return false
       alert('Please input the neccessary data.');
+
+      // Move the cursor to the empty field for better user experience
+      $(selector).focus()
+
       return false;
     }
   }
@@ -164,9 +181,4 @@ function checkIfInputIsFilled(event) {
 }
 
 
-export { readExpenseInputValues, createTableMarkup, createTableRowItem, deleteTableRowItem, resetInputBox, checkIfInputIsFilled };
-
-
-
-// Note
-// Callback functions from button event listeners => this = button element
+export { readExpenseInputValues, showTable, hideTable, createTableRowItem, deleteTableRowItem, resetInputBox, checkIfInputIsFilled };

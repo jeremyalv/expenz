@@ -47,12 +47,12 @@
   margin: 0 auto 0 auto;
   width: 60%;
   border: 1px rgb(31, 17, 17) solid;
-  border-radius: 40px;
-  padding: 6px;
 }
 .main {
   /* text-align: center; */
   margin-top: 36px;
+  border-radius: 40px;
+  padding: 6px;
 }
 .app-header {
   text-align: center;
@@ -114,9 +114,50 @@
 }
 
 /* Table styling */
-.expense-table {
-  margin-top: 24px;
-  border-radius: 12px;
-  -moz-border-radius: 12px;
-  -webkit-border-radius: 12px;
+table { 
+  margin-top: 24px !important;
+  border: 1px solid #ddd;
+  border-collapse: separate;
+  border-left: 0;
+  border-radius: 40px;
+  border-spacing: 0px;
 }
+thead {
+  display: table-header-group;
+  vertical-align: middle;
+  border-color: inherit;
+  border-collapse: separate;
+}
+tr {
+  display: table-row;
+  vertical-align: inherit;
+  border-color: inherit;
+}
+th, td {
+  padding: 5px 4px 6px 4px; 
+  text-align: left;
+  vertical-align: top;
+  border-left: 1px solid #ddd;    
+}
+td {
+  border-top: 1px solid #ddd;    
+}
+thead:first-child tr:first-child th:first-child, tbody:first-child tr:first-child td:first-child {
+  border-radius: 4px 0 0 0;
+}
+thead:last-child tr:last-child th:first-child, tbody:last-child tr:last-child td:first-child {
+  border-radius: 0 0 0 4px;
+}
+
+/* .expense-table {
+  margin-top: 24px;
+  padding: 0 18px 0 8px;
+  /* -moz-border-radius: 12px;
+  -webkit-border-radius: 12px;
+  border: 1px rgb(31, 17, 17) solid;
+  border-radius: 40px; */
+  padding: 6px;
+}
+.table-row {
+  padding: 8px;
+} */
