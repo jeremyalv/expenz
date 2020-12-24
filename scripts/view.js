@@ -82,10 +82,20 @@ function createTableRowItem(expense, expenseList, controlRemoveTR) {
   // Add onclick method for tdRemove's button
   const tdRemove = document.createElement('td');
   const cross = document.createElement('button');
-  cross.innerHTML = CROSS_HEX;
-  cross.setAttribute('class', CROSS_ITEM_CLASSNAME);
+
+  const span = document.createElement('span');
+  span.setAttribute('class', 'span-close');
+  span.setAttribute('aria-hidden', true);
+  span.innerHTML = '&times;';
+
+  cross.className = 'btn btn-close';
+  cross.setAttribute('type', 'button');
+  cross.setAttribute('aria-label', 'Close');
   cross.setAttribute('id', `cross-${expenseList.length}`);
   cross.onclick = controlRemoveTR;
+
+  cross.appendChild(span);
+
   tdRemove.appendChild(cross);
   // this = button element, go up twice to retrieve tr's id.
 

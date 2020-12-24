@@ -3,8 +3,8 @@ const $ = function (selector) {
 }
 const ENTER_KEYCODE = 13;
 const ADD_EXPENSE_CLASSNAME = 'btn-add-expense';
-const CROSS_HEX = '&#10006';
-const CROSS_ITEM_CLASSNAME = 'table-data-cross';
+const CROSS_HEX = '&times;';
+const CROSS_ITEM_CLASSNAME = 'btn-cross';
 const DOLLAR_SIGN = '$';
 // Tanda mata uang option
 
